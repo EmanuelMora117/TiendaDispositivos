@@ -1,0 +1,111 @@
+<div class="d-flex flex-column justify-content-center align-items-center" style="gap: 2rem;">
+    <div class="d-flex justify-content-center" style="gap: 1rem; width: 80%;">
+        @for(product of detailsProduct; track product.id){
+            <div class="d-flex flex-column containerImagesProduct">
+                <img [src]="product.urlImage1" alt="" (click)="changeImageMain(product.urlImage1)">
+                <img [src]="product.urlImage2" alt="" (click)="changeImageMain(product.urlImage2)">
+                <img [src]="product.urlImage3" alt="" (click)="changeImageMain(product.urlImage3)">
+            </div>
+
+            <div class="containerImageMainProduct">
+                <img [src]="this.img" alt="">
+            </div>
+
+            <div class="containerInformationProduct d-flex flex-column justify-content-between" style="padding: 1.7rem;">
+                <h2>{{product.titulo}}</h2>
+    
+                <p>${{product.precio}}</p>
+                <p>¡Últimas 10 unidades!</p>
+    
+                <div class="d-flex justify-content-between" style="gap: 1rem;">
+                    <div class="deliveryMethod">
+                        <p>Envío a tu dirección</p>
+                        <p>GRATIS</p>
+                    </div>
+                    <div class="deliveryMethod">
+                        <P>Recoge en tienda</P>
+                        <p>GRATIS</p>
+                    </div>
+                    <div class="deliveryMethod">
+                        <P>Entrega hoy</P>
+                        <p>GRATIS</p>
+                    </div>
+                </div>
+    
+                <div class="d-flex justify-content-center" style="width: 100%; gap: 1rem;">
+                    <input type="number" style="width: 5rem; padding: 0.5rem;" value="1">
+                    <button class="btn btn-primary"> Agregar al carrito</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <section style="width: 80%;">
+            <h3>Detalles y caracteristicas del producto</h3>
+            <ul>
+                <li>Procesador MTK G36: Mejora el rendimiento de tus tareas</li>
+                <li>Pantalla LCD de 90 Hz: Inmersion suave y total</li>
+                <li>Camara 8MP con lente auxiliar que brinda gran calidad</li>
+                <li>Puerto de tipo C: Diseñado para mas de 800 ciclos de carga</li>
+            </ul>
+           <p>
+            Presentamos el Redmi A3, un teléfono que se adaptara a tu estilo de vida a un precio asequible. En el Redmi A3 un rendimiento excepcional en tus tareas diarias con el potente procesador que hará que cada actividad sea una experiencia fluida y sin interrupciones. Adicionalmente podrás explorar el encanto de un diseño donde la elegancia se integra con la funcionalidad. ¡Adquiérelo hoy!
+           </p>
+    </section>
+
+    <section style="width: 80%;">
+        <h3>Opiniones de clientes</h3>
+
+        <div class="d-flex align-items-center" style="gap: 0.5rem;">
+            <div>
+                <span style="font-size: 4rem;">4.8</span>
+            </div>
+            <div>
+                <span>Calificación promedio</span>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-column" style="gap: 1rem;">
+
+            <div>
+                <button class="btn btn-secondary">Escribir una opinion</button>
+            </div>
+            
+            <div>
+                @for(review of productReviews; track review.id){
+                    @for(item of review.items; track $index){
+                        <div class="d-flex flex-column" style="gap: 3rem;">
+                            @for(opinion of item.opinionProductos; track $index){
+    
+                                @if(opinion.titulo == showProductReview){
+                                    <div class="d-flex align-items-center justify-content-between" style="background-color: #d4d4d4; width: 100%; height: 5rem; border-radius: 1rem; padding: 0.5rem 1rem;">
+                                        <div>
+                                            <span>{{opinion.qualification}}</span>
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor">
+                                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                                  </svg>
+                                                  <span>{{opinion.user}}</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div>
+                                            <span>{{opinion.opinion}}</span>
+                                        </div>
+            
+                                        <div>
+                                            <span>{{opinion.date}}</span>
+                                        </div>
+            
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+    
+</div>

@@ -1,0 +1,85 @@
+.containerCategory{
+    gap: 3rem; 
+    height: 100%;
+}
+
+p {
+    margin: 0;
+}
+span {
+    color: #858585;
+}
+
+.containerProducts{
+    width: fit-content; 
+    gap: 3rem;
+}
+
+.containerDetailsProduct{
+    width: 40rem; 
+    height: fit-content;
+}
+
+.containerCellphone{
+    gap: 1rem;
+    height: fit-content; 
+    width: 11rem; 
+    margin-right: 1rem; 
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.images{
+    width: 8rem; 
+    border-radius: 1rem;
+}
+
+.containerCellphone:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+.containerAddCar{
+    text-align: center; margin-top: 1rem;
+}
+
+
+
+.filter-aside {
+    width: 15rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.filter-group {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.filter-label {
+    display: block;
+    margin: 0.25rem 0;
+    font-size: 14px;
+}
+
+.filter-button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+}

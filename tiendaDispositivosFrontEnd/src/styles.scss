@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../public/fonts/Poppins/poppins.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins-regular';
+  }
+
+  html{
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  

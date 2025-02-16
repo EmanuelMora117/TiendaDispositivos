@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center containerCategory">
+    <aside class="filter-aside">
+        <h3>Filtrar Por:</h3>
+        <form>
+            <fieldset class="filter-group">
+                <legend>Categoría</legend>
+                <label class="filter-label">
+                    <input type="checkbox" name="categoria" value="Celulares"> Celulares
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="categoria" value="Laptops"> Computadores
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="categoria" value="Tablets"> Smartwatches
+                </label>
+            </fieldset>
+    
+            <fieldset class="filter-group">
+                <legend>Marca</legend>
+                <label class="filter-label">
+                    <input type="checkbox" name="marca" value="Apple"> Apple
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="marca" value="Samsung"> Samsung
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="marca" value="Xiaomi"> Xiaomi
+                </label>
+            </fieldset>
+
+            <fieldset class="filter-group">
+                <legend>Precio</legend>
+                <label class="filter-label">
+                    <input type="radio" name="precio" value="0-500000"> Hasta $500.000
+                </label>
+                <label class="filter-label">
+                    <input type="radio" name="precio" value="500000-2000000"> $500.000 - $2.000.000
+                </label>
+                <label class="filter-label">
+                    <input type="radio" name="precio" value="2000000-5000000"> $2.000.000 - $5.000.000
+                </label>
+                <label class="filter-label">
+                    <input type="radio" name="precio" value="5000000+"> Más de $5.000.000
+                </label>
+            </fieldset>
+    
+            <button type="submit" class="filter-button">Aplicar Filtros</button>
+        </form>
+    </aside>
+    
+    <div class="d-flex flex-column containerProducts" >
+        @for(product of products; track product.id){
+            @if(product.categoria == categorySelected){
+                <!-- <div class="d-flex flex-column" style="gap: 5rem; width: fit-content;"> -->
+                    @for(item of product.items; track $index){
+                        <div class="d-flex justify-content-between containerDetailsProduct">
+                            @for(prod of item.productos; track $index){
+                                <div class="d-flex flex-column containerCellphone" (click)="showProductSelected(prod)">
+                                    <div style="text-align: center;">
+                                        <img [src]="prod.urlImage1" alt="" class="images">
+                                    </div>
+                                    
+                                    <div>
+                                        <p>{{prod.titulo}}</p>
+                                        <span>{{item.marca}}</span>
+                                        <p>{{prod.precio}}</p>
+                                    </div>
+
+                                    <div class="containerAddCar">
+                                        <button class="btn btn-primary"> Agregar al carrito</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                <!-- </div> -->
+            }
+        }
+    </div>
+</div>

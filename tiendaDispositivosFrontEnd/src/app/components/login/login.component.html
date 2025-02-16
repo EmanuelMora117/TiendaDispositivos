@@ -1,0 +1,37 @@
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: fit-content;">
+        <div class="modal-header">
+                <div class="d-flex align-items-center justify-content-center headModal">
+                    <h2>Tienda Fast</h2>
+                    <img src="images/logo.png" alt="" >
+                </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center containerTitle">
+            <h3>Inicia sesión para continuar</h3>
+          </div>
+          <div class="d-flex align-items-center containerForm">
+            <form action="">
+                <fieldset class="d-flex flex-column">
+                    <legend>Ingresa tus credenciales</legend>
+                    <div class="credentials1">
+                        <label for="">Usuario o Correo</label>
+                        <input type="text">
+                    </div>
+                    <div class="credentials2">
+                        <label for="">Contraseña</label>
+                        <input type="text">
+                    </div>
+                </fieldset>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="ValidateCredentials()">Iniciar Sesion</button>
+        </div>
+      </div>
+    </div>
+  </div>
