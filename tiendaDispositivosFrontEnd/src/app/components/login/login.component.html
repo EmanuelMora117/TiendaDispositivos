@@ -9,28 +9,122 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center containerTitle">
-            <h3>Inicia sesión para continuar</h3>
-          </div>
-          <div class="d-flex align-items-center containerForm">
-            <form action="">
-                <fieldset class="d-flex flex-column">
-                    <legend>Ingresa tus credenciales</legend>
-                    <div class="credentials1">
-                        <label for="">Usuario o Correo</label>
-                        <input type="text">
+          @if(this.showFormLogin == true){
+            <div class="d-flex align-items-center containerTitle">
+              <h3>Inicia sesión para continuar</h3>
+            </div>
+            <div class="d-flex align-items-center containerForm">
+              @if(this.closeModal == ''){
+                <form action="">
+                  <fieldset class="d-flex flex-column">
+                      <legend>Ingresa tus credenciales</legend>
+                      <div class="credentials1">
+                          <label for="">Usuario o Correo</label>
+                          <input type="text" [(ngModel)]="username" name="username">
+                      </div>
+                      <div class="credentials2">
+                          <label for="">Contraseña</label>
+                          <input type="text" [(ngModel)]="middle" name="middle">
+                      </div>
+
+                      @if(this.messageError !== ''){
+                        <div style="margin-top: 3rem;">
+                          <label for="" style="color: red;">{{this.messageError}}</label>
+                        </div>
+                      }
+                      @if(this.userCreated !== ''){
+                        <div style="margin-top: 3rem;">
+                          <label for="" style="color: rgb(73, 196, 73);">{{this.userCreated}}</label>
+                        </div>
+                      }
+                  </fieldset>
+              </form>
+              }
+            </div>
+          }@else {
+            <div class="register" style="width: 100%;">
+              <form action="" [formGroup]="formNewUser" (ngSubmit)="validationUserClient()" class="d-flex flex-column" style="gap: 1rem; width: 100%;" >
+                    <div class="d-flex justify-content-center" style="gap: 2rem; width: 100%;">
+                      <fieldset>
+                        <legend>registra las credenciales de acceso</legend>
+                        <div>
+                          <label for="correo">Correo</label>
+                          <input id="correo" type="email" formControlName="correo">
+                          @if(formNewUser.get('correo')?.invalid && formNewUser.get('correo')?.touched){
+                            <span>El correo es obligatorio y debe ser válido</span>
+                          }
+                        </div>
+                        <div>
+                          <label for="usuario">Usuario</label>
+                          <input id="usuario" type="text" formControlName="usuario">
+                          @if(formNewUser.get('usuario')?.invalid && formNewUser.get('usuario')?.touched){
+                            <span>Nombre de usuario obligatorio.</span>
+                          }
+                        </div>
+                        <div>
+                          <div>
+                            <label for="middle">Contraseña</label>
+                            <input id="middle" type="password" formControlName="middle">
+                            @if(formNewUser.get('middle')?.invalid && formNewUser.get('middle')?.touched){
+                              <span>La contraseña debe contener minimo 8 caracteres.</span>
+                            }
+                          </div>
+                          <div>
+                            <label for="confirmarMiddle">Confirmar contraseña</label>
+                            <input id="confirmarMiddle" type="password" formControlName="confirmarMiddle">
+                            @if(formNewUser.get('confirmarMiddle')?.touched || this.errorMiddle){
+                              <span>{{this.errorMiddle}}</span>
+                            }
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset>
+                        <legend>ingresa datos de informacion adicional</legend>
+                        <div>
+                          <div>
+                            <label for="cedula">Cedula</label>
+                            <input id="cedula" type="text" formControlName="cedula">
+                          </div>
+                          <div>
+                            <label for="direccion">Direccion</label>
+                            <input id="direccion" type="text" formControlName="direccion">
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            <label for="celular">Numero de celular</label>
+                            <input id="celular" type="number" formControlName="celular">
+                          </div>
+                          <div>
+                            <label for="telefono">Numero de telefono</label>
+                            <input id="telefono" type="number" formControlName="telefono">
+                          </div>
+                        </div>
+                      </fieldset>
                     </div>
-                    <div class="credentials2">
-                        <label for="">Contraseña</label>
-                        <input type="text">
-                    </div>
-                </fieldset>
-            </form>
-          </div>
+                    <div style="width: 100%; gap: 1rem;" class="d-flex justify-content-end">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeView()">Cerrar</button>
+                      <button type="submit" class="btn btn-primary" [disabled]="formNewUser.invalid">Registrarse</button>
+                   </div>
+              </form>
+            </div>
+          }
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="ValidateCredentials()">Iniciar Sesion</button>
+        <div class="modal-footer d-flex justify-content-between">
+          @if(this.showFormLogin == true) {
+            <div style="font-size: 0.7rem;" class="d-flex align-items-center flex-wrap">
+              <div style="width: 10rem;">
+                <label>¿No tienes una cuenta? creala en unos cuantos pasos</label>
+              </div>
+              <button type="button" class="btn btn-primary" style="font-size: 0.6rem;" (click)="changeView()">Registrarse</button>
+            </div>
+            <div class="d-flex" style="gap: 1rem;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              @if(this.closeModal == ''){
+                <button type="button" class="btn btn-primary" (click)="ValidateCredentials()">Iniciar Sesion</button>
+              }
+            </div>
+          }
         </div>
       </div>
     </div>

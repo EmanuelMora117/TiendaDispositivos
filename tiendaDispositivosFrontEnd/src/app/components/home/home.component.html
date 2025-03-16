@@ -28,7 +28,8 @@
                   </svg>
             </div>
 
-            <div class="d-flex flex-column align-items-center managerProducts" data-bs-toggle="modal" data-bs-target="#modalManageProducts">
+            @if(this.modelData.getTipo() == 'ADM'){
+                <div class="d-flex flex-column align-items-center managerProducts" data-bs-toggle="modal" data-bs-target="#modalManageProducts">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                         <path d="M3 21l18 0"></path>
                         <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"></path>
@@ -36,10 +37,12 @@
                         <path d="M19 21l0 -10.15"></path>
                         <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path>
                       </svg>
-                      <span>Gestionar Productos</span>
+                      <span>Gestionar</span>
             </div>
+            }
 
-            <div class="d-flex flex-column align-items-center buttonLogin" data-bs-toggle="modal" data-bs-target="#modalLogin">
+            @if(!this.modelData.getSession()){
+                <div class="d-flex flex-column align-items-center buttonLogin" data-bs-toggle="modal" data-bs-target="#modalLogin">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                         <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
                         <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
@@ -47,6 +50,9 @@
                       </svg>
                     <span>Mi cuenta</span>
             </div>
+            }@else if(this.modelData.getSession()){
+                <button class="btn btn-danger" (click)="logOut()">Cerrar Sesion</button>
+            }
 
         </div>
     </header>
@@ -56,37 +62,19 @@
     </div>
     
     <main>
-        @if(this.showGeneralProducts == 'general'){
-            <div class="cellPhoneContainer">
-                <h3>Celulares</h3>
-                <div class="cellPhoneContainerImages" (click)="this.changeProductView('Celulares')">
-                    <img src="images/celularesXiaomi.png" alt="">
-                    <img src="images/CelularesApple.png" alt="">
-                    <img src="images/celularesSamsung.png" alt="">
+        @if(this.showGeneralProducts == 'general') {
+            @for(category of categoria; track category.idCategoria) {
+                <h3>{{category.categoriaDescripcion}}</h3>
+                <div class="categoryContainer" (click)="this.changeProductView(category)">
+                    <img [src]="'data:image/png;base64,' + category.imagen1" alt="Imagen">
+                    <img [src]="'data:image/png;base64,' + category.imagen2" alt="Imagen">
+                    <img [src]="'data:image/png;base64,' + category.imagen3" alt="Imagen">
                 </div>
-            </div>
-        
-            <div class="portableContainer">
-                <h3>Computadores</h3>
-                <div class="portableContainerImages" (click)="this.changeProductView('Computadores')">
-                    <img src="images/PortatilesAsus.png" alt="">
-                    <img src="images/portatilesHp.png" alt="">
-                    <img src="images/portatilesLenovo.png" alt="">
-                </div>
-            </div>
-        
-            <!-- <div class="smartwatchesContainer">
-                <h3>Smartwatches</h3>
-                <div class="smartwatchesContainerImages" (Click)="this.changeProductView('')">
-                    <img src="images/smarthWatchApple.png" alt="">
-                    <img src="images/smarthWatchredmi.png" alt="">
-                    <img src="images/smartwatchSamsung.png" alt="">
-                </div>
-            </div> -->
+            }
 
-        }@else if(this.showGeneralProducts == 'category'){
+        } @else if(this.showGeneralProducts == 'category') {
             <app-category [categorySelected]="categoryPorducts" (showProduct)="showProduct($event)"></app-category>
-        }@else if(this.showView3){
+        } @else if(this.showView3) {
             <app-product-view [detailsProduct]="showProductSelected"></app-product-view>
         }  
     </main>
@@ -98,4 +86,4 @@
 </div>
 
 <app-login></app-login>
-<app-manage-products></app-manage-products>
+<app-type-view-manage></app-type-view-manage>

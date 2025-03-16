@@ -1,42 +1,47 @@
 <div class="d-flex flex-column justify-content-center align-items-center" style="gap: 2rem;">
     <div class="d-flex justify-content-center" style="gap: 1rem; width: 80%;">
-        @for(product of detailsProduct; track product.id){
-            <div class="d-flex flex-column containerImagesProduct">
-                <img [src]="product.urlImage1" alt="" (click)="changeImageMain(product.urlImage1)">
-                <img [src]="product.urlImage2" alt="" (click)="changeImageMain(product.urlImage2)">
-                <img [src]="product.urlImage3" alt="" (click)="changeImageMain(product.urlImage3)">
-            </div>
 
-            <div class="containerImageMainProduct">
-                <img [src]="this.img" alt="">
-            </div>
+        @for(product of detailsProduct; track product.idMarca){
+            @for(item of product.marca; track item){
 
-            <div class="containerInformationProduct d-flex flex-column justify-content-between" style="padding: 1.7rem;">
-                <h2>{{product.titulo}}</h2>
-    
-                <p>${{product.precio}}</p>
-                <p>¡Últimas 10 unidades!</p>
-    
-                <div class="d-flex justify-content-between" style="gap: 1rem;">
-                    <div class="deliveryMethod">
-                        <p>Envío a tu dirección</p>
-                        <p>GRATIS</p>
+                <div class="d-flex flex-column containerImagesProduct">
+                    <img [src]="'data:image/png;base64,' + item.image1" alt="" (click)="changeImageMain(item.image1)">
+                    <img [src]="'data:image/png;base64,' + item.image2" alt="" (click)="changeImageMain(item.image2)">
+                    <img [src]="'data:image/png;base64,' + item.image3" alt="" (click)="changeImageMain(item.image3)">
+                </div>
+
+                <div class="containerImageMainProduct">
+                    <img [src]="'data:image/png;base64,' + this.img" alt="">
+                </div>
+
+                <div class="containerInformationProduct d-flex flex-column justify-content-between" style="padding: 1.7rem;">
+                    <h2>{{item.titulo}}</h2>
+        
+                    <p>${{item.precio}}</p>
+                    <p>¡Últimas 10 unidades!</p>
+        
+                    <div class="d-flex justify-content-between" style="gap: 1rem;">
+                        <div class="deliveryMethod">
+                            <p>Envío a tu dirección</p>
+                            <p>GRATIS</p>
+                        </div>
+                        <div class="deliveryMethod">
+                            <P>Recoge en tienda</P>
+                            <p>GRATIS</p>
+                        </div>
+                        <div class="deliveryMethod">
+                            <P>Entrega hoy</P>
+                            <p>GRATIS</p>
+                        </div>
                     </div>
-                    <div class="deliveryMethod">
-                        <P>Recoge en tienda</P>
-                        <p>GRATIS</p>
-                    </div>
-                    <div class="deliveryMethod">
-                        <P>Entrega hoy</P>
-                        <p>GRATIS</p>
+        
+                    <div class="d-flex justify-content-center" style="width: 100%; gap: 1rem;">
+                        <input type="number" style="width: 5rem; padding: 0.5rem;" value="1">
+                        <button class="btn btn-primary"> Agregar al carrito</button>
                     </div>
                 </div>
-    
-                <div class="d-flex justify-content-center" style="width: 100%; gap: 1rem;">
-                    <input type="number" style="width: 5rem; padding: 0.5rem;" value="1">
-                    <button class="btn btn-primary"> Agregar al carrito</button>
-                </div>
-            </div>
+            
+            }
         }
     </div>
 

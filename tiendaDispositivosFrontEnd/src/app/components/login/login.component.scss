@@ -2,6 +2,11 @@ legend{
     font-size: 1.2rem;
 }
 
+span{
+    font-size: 0.7rem;
+    color: red;
+}
+
 fieldset {
     height: 100%;
     text-align: center;
@@ -17,8 +22,7 @@ fieldset {
     margin: 0.7rem 0;
 }
 
-.credentials1 input,
-.credentials2 input{
+input{
     width: 90%;
     padding: 0.2rem;
     border-radius: 0.4rem;
@@ -44,8 +48,8 @@ fieldset {
 }
 
 .modal-body{
-    width: 40rem; 
-    height: 20rem; 
+    width: 45rem; 
+    height: 23rem; 
     gap: 2rem;
 }
 
@@ -53,3 +57,17 @@ fieldset {
     height: 100%; 
     text-align: center;
 }
+
+.register legend{
+    font-size: 1rem;
+
+    fieldset {
+        padding: 0 0.5rem 0 0;
+    }
+}
+
+.register input{
+    width: 100%;
+    display: block;
+}
+

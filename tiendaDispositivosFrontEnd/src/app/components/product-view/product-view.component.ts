@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Marca } from '../../interfaces/marca';
 
 @Component({
   selector: 'app-product-view',
@@ -10,7 +11,7 @@ export class ProductViewComponent {
 
   
 
-  @Input() detailsProduct: any[] = [];
+  @Input() detailsProduct: Marca[] = [];
   img: string = '';
 
   productReviews: any[] = [
@@ -52,7 +53,7 @@ export class ProductViewComponent {
 
 
     ngOnInit(){
-      this.img = this.detailsProduct[0].urlImage1;
+      this.img = this.detailsProduct[0].marca[0].image1;
     }
 
   changeImageMain(image: string){

@@ -49,32 +49,28 @@
     </aside>
     
     <div class="d-flex flex-column containerProducts" >
-        @for(product of products; track product.id){
-            @if(product.categoria == categorySelected){
-                <!-- <div class="d-flex flex-column" style="gap: 5rem; width: fit-content;"> -->
-                    @for(item of product.items; track $index){
-                        <div class="d-flex justify-content-between containerDetailsProduct">
-                            @for(prod of item.productos; track $index){
-                                <div class="d-flex flex-column containerCellphone" (click)="showProductSelected(prod)">
-                                    <div style="text-align: center;">
-                                        <img [src]="prod.urlImage1" alt="" class="images">
-                                    </div>
-                                    
-                                    <div>
-                                        <p>{{prod.titulo}}</p>
-                                        <span>{{item.marca}}</span>
-                                        <p>{{prod.precio}}</p>
-                                    </div>
 
-                                    <div class="containerAddCar">
-                                        <button class="btn btn-primary"> Agregar al carrito</button>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    }
-                <!-- </div> -->
+        @for(m of marca; track m.idMarca){
+            <div class="d-flex justify-content-between containerDetailsProduct">
+            @for(item of m.marca; track item){
+                <div class="d-flex flex-column containerCellphone">
+                    <div style="text-align: center;">
+                        <img class="images" [src]="'data:image/png;base64,' + item.image1" alt="Imagen">
+                    </div>
+                    
+                    <div>
+                        <p>{{item.titulo}}</p>
+                        <span>{{m.descripcionMarca}}</span>
+                        <p>{{item.precio}}</p>
+                    </div>
+
+                    <div class="containerAddCar">
+                        <button class="btn btn-primary"> Agregar al carrito</button>
+                    </div>
+                </div>
+            
             }
+            </div>
         }
     </div>
 </div>

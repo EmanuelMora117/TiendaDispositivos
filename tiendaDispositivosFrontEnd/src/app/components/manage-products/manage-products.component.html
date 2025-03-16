@@ -1,91 +1,210 @@
-<div class="modal fade" id="modalManageProducts" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Gestionar Productos</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+@if(this.typeView == 'products'){
+<div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+  <button class="btn btn-primary d-flex" (click)="changeView()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 5l0 14" />
+      <path d="M5 12l14 0" />
+    </svg>
+    Agregar Producto
+  </button>
+</div>
+<div style="width: 85%; height: 30rem; overflow: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        @for(key of keys; track $index){
+        <th scope="col">{{key}}</th>
+        }
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(product of products; track product.id){
+      <tr scope="row" style="text-align: center;">
+        @for(key of keys; track $index){
+        @if(!key.includes('image')){
+        <td>{{product[key]}}</td>
+        }@else {
+        <td><img [src]="'data:image/png;base64,' + product[key]" alt="" style="width: 3rem;"></td>
+        }
+        }
+        <td class="d-flex" style="gap: 0.1rem;">
+          <button type="button" class="btn btn-primary" (click)="updateAdminForm(product)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="deteleteProduct(product)">Eliminar</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}@else if(this.typeView == 'formProducts') {
+<div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+  <button class="btn btn-primary d-flex" (click)="changeView()">
+    regresar
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" />
+      <path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" />
+    </svg>
+  </button>
+</div>
+<div style="width: 50rem; height: 30rem; overflow: auto;">
+  <form action="" [formGroup]="formNewProduct" (ngSubmit)="validationProduct()">
+    <fieldset>
+      <legend>Crear productos</legend>
+      <div class="d-flex" style="gap: 1rem;">
+        <div class="d-flex flex-column" style="gap: 1rem; width: 90%;">
           <div>
-            
-            <div style="width: 100%; margin-bottom: 1rem;" class="d-flex flex-row-reverse">
-              <button class="btn btn-primary">Crear registro</button>
+            <label for="titulo">Titulo</label>
+            <input id="titulo" type="text" formControlName="titulo">
+            @if(formNewProduct.get('titulo')?.invalid && formNewProduct.get('titulo')?.touched){
+            <span>El titulo es obligatorio.</span>
+            }
+          </div>
+          <div>
+            <label for="precio">Precio</label>
+            <input id="precio" type="text" formControlName="precio">
+            @if(formNewProduct.get('precio')?.invalid && formNewProduct.get('precio')?.touched){
+            <span>El precio es obligatorio.</span>
+            }
+          </div>
+          <div>
+            <label for="marca">Marca</label>
+            <select name="" id="marca" formControlName="marca">
+              <option value=""></option>
+              @for(marca of marcas; track marca.id){
+                <option [value]="marca.descripcionMarca">{{marca.descripcionMarca}}</option>
+              }
+            </select>
+            @if(formNewProduct.get('marca')?.invalid && formNewProduct.get('marca')?.touched){
+            <span>La marca es requerida</span>
+            }
+          </div>
+          <div>
+            <div>
+              <label for="image1">Imagen producto vista 1</label>
+              <input id="image1" type="file" (change)="onFileChange($event, 'image1')">
+              @if(formNewProduct.get('image1')?.invalid && formNewProduct.get('image1')?.touched){
+              <span>La imagen es obligatoria.</span>
+              }
             </div>
-            <div class="d-flex" style="gap: 3rem;">
-              <!-- <div style="width: 50%;">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1">Ttitulo Producto</span>
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            <div>
+              <label for="image2">Imagen producto vista 2</label>
+              <input id="image2" type="file" (change)="onFileChange($event, 'image2')">
+              @if(formNewProduct.get('image2')?.invalid && formNewProduct.get('image2')?.touched){
+              <span>La imagen es obligatoria.</span>
+              }
+            </div>
+            <div>
+              <label for="image3">Imagen producto vista 3</label>
+              <input id="image3" type="file" (change)="onFileChange($event, 'image3')">
+              @if(formNewProduct.get('image3')?.invalid && formNewProduct.get('image3')?.touched){
+              <span>La imagen es obligatoria.</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+      <button type="submit" class="btn btn-primary" [disabled]="formNewProduct.invalid">Crear Producto</button>
+    </div>
+  </form>
+</div>
+} @else if(this.typeView == 'FormsUpdate'){
+  <div style="width: 100%; margin-bottom: 1rem;" class="d-flex flex-row-reverse">
+    <button class="btn btn-primary d-flex" (click)="changeView()">
+      regresar
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" />
+        <path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" />
+      </svg>
+    </button>
+  </div>
+  <div style="width: 50rem; height: 30rem; overflow: auto;">
+    <form action="" [formGroup]="formUpdateProduct" (ngSubmit)="validationUpdate()">
+      <fieldset>
+        <legend>Crear productos</legend>
+        <div class="d-flex" style="gap: 1rem;">
+          <div class="d-flex flex-column" style="gap: 1rem; width: 90%;">
+            <div>
+              <label for="titulo">Titulo</label>
+              <input id="titulo" type="text" formControlName="titulo">
+              @if(formUpdateProduct.get('titulo')?.invalid && formUpdateProduct.get('titulo')?.touched){
+              <span>El titulo es obligatorio.</span>
+              }
+            </div>
+            <div>
+              <label for="precio">Precio</label>
+              <input id="precio" type="text" formControlName="precio">
+              @if(formUpdateProduct.get('precio')?.invalid && formUpdateProduct.get('precio')?.touched){
+              <span>El precio es obligatorio.</span>
+              }
+            </div>
+            <div>
+              <label for="marca">Marca</label>
+              <select name="" id="marca" formControlName="marca">
+                <option value=""></option>
+                @for(marca of marcas; track marca.id){
+                  <option [value]="marca.descripcionMarca">{{marca.descripcionMarca}}</option>
+                }
+              </select>
+              @if(formUpdateProduct.get('marca')?.invalid && formUpdateProduct.get('marca')?.touched){
+              <span>La marca es requerida</span>
+              }
+            </div>
+            <div class="d-flex flex-column" style="gap: 2rem;">
+              <div class="d-flex" style="gap: 1rem;">
+                <div>
+                  <img [src]="'data:image/png;base64,' + productUpdate.image1" alt="" style="width: 5rem;">
                 </div>
-
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                  <span class="input-group-text" id="basic-addon2">example.com</span>
+                <div>
+                  <label for="image1">Imagen producto vista 1</label>
+                  <input id="image1" type="file" (change)="onFileChangeUpdate($event, 'image1')">
+                  @if(formUpdateProduct.get('image1')?.invalid && formUpdateProduct.get('image1')?.touched){
+                  <span>La imagen es obligatoria.</span>
+                  }
                 </div>
-                
-                <div class="mb-3">
-                  <label for="basic-url" class="form-label">Your vanity URL</label>
-                  <div class="input-group">
-                    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-                  </div>
-                  <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
+              </div>
+              <div class="d-flex" style="gap: 1rem;">
+                <div>
+                  <img [src]="'data:image/png;base64,' + productUpdate.image2" alt="" style="width: 5rem;">
                 </div>
-                
-                <div class="input-group mb-3">
-                  <span class="input-group-text">$</span>
-                  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                  <span class="input-group-text">.00</span>
+                <div>
+                  <label for="image2">Imagen producto vista 2</label>
+                  <input id="image2" type="file" (change)="onFileChangeUpdate($event, 'image2')">
+                  @if(formUpdateProduct.get('image2')?.invalid && formUpdateProduct.get('image2')?.touched){
+                  <span>La imagen es obligatoria.</span>
+                  }
                 </div>
-                
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                  <span class="input-group-text">bh</span>
-                  <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+              </div>
+              <div class="d-flex" style="gap: 1rem;">
+                <div>
+                  <img [src]="'data:image/png;base64,' + productUpdate.image3" alt="" style="width: 5rem;">
                 </div>
-                
-                <div class="input-group">
-                  <span class="input-group-text">With textarea</span>
-                  <textarea class="form-control" aria-label="With textarea"></textarea>
+                <div>
+                  <label for="image3">Imagen producto vista 3</label>
+                  <input id="image3" type="file" (change)="onFileChangeUpdate($event, 'image3')">
+                  @if(formUpdateProduct.get('image3')?.invalid && formUpdateProduct.get('image3')?.touched){
+                  <span>La imagen es obligatoria.</span>
+                  }
                 </div>
-              </div> -->
-  
-              <div style="width: 100%; height: 30rem; overflow: auto;">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      @for(key of keys; track key){
-                        <th scope="col">{{key}}</th>
-                      }
-                      <th>Gestion</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for(product of products; track product.id){
-                      <tr scope="row" style="text-align: center;">
-                          @for(key of keys; track key){
-                            @if(!key.includes('urlImage')){
-                              <td>{{product[key]}}</td>
-                            }@else {
-                              <td><img [src]="product[key]" alt="" style="width: 3rem;"></td>
-                            }
-                          }
-                          <td>
-                            <button type="button" class="btn btn-primary">Editar</button>
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                          </td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+      </fieldset>
+      <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary" [disabled]="formUpdateProduct.invalid">Actualizar Producto</button>
       </div>
-    </div>
+    </form>
   </div>
+}

@@ -1,0 +1,167 @@
+@if(this.typeView == 'category'){
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+      <button class="btn btn-primary d-flex" (click)="changeView()">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+        Agregar Categoria
+      </button>
+  </div>
+  <div style="width: 85%; height: 30rem; overflow: auto;">
+      <table class="table">
+          <thead>
+              <tr>
+                @for(key of keys; track $index){
+                  <th scope="col">{{key}}</th>
+                }
+                <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              @for(categoria of categorias; track categoria.id){
+                  <tr scope="row" style="text-align: center;">
+                      @for(key of keys; track $index){
+                        @if(!key.includes('image')){
+                          <td>{{categoria[key]}}</td>
+                        }@else {
+                          <td><img [src]="'data:image/png;base64,' + categoria[key]" alt="" style="width: 3rem;"></td>
+                        }
+                      }
+                      <td class="d-flex" style="gap: 0.1rem;">
+                        <button type="button" class="btn btn-primary" (click)="updateCategoryForm(categoria)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="deteleteCategory(categoria)">Eliminar</button>
+                      </td>
+                  </tr>
+              }
+          </tbody>
+      </table>
+  </div>
+  }@else if(this.typeView == 'formCategory') {
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+      <button class="btn btn-primary d-flex" (click)="changeView()">
+        regresar
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" />
+          <path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" />
+        </svg>
+      </button>
+    </div>
+    <div style="width: 50rem; height: 30rem; overflow: auto;">
+      <form action="" [formGroup]="formNewCategory" (ngSubmit)="validationProduct()">
+        <fieldset>
+          <legend>Crear Categoria</legend>
+          <div class="d-flex" style="gap: 1rem;">
+            <div class="d-flex flex-column" style="gap: 1rem; width: 90%;">
+              <div>
+                <label for="categoriaDescripcion">Titulo categoria</label>
+                <input id="categoriaDescripcion" type="text" formControlName="categoriaDescripcion">
+                @if(formNewCategory.get('categoriaDescripcion')?.invalid && formNewCategory.get('categoriaDescripcion')?.touched){
+                <span>El titulo de la categoria es obligatoria.</span>
+                }
+              </div>
+              <div>
+                <div>
+                    <label for="imagen1">Imagen categoria vista 1</label>
+                    <input id="imagen1" type="file" (change)="onFileChange($event, 'imagen1')">
+                    @if(formNewCategory.get('imagen1')?.invalid && formNewCategory.get('imagen1')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                </div>
+                <div>
+                    <label for="image2">Imagen categoria vista 2</label>
+                    <input id="image2" type="file" (change)="onFileChange($event, 'imagen2')">
+                    @if(formNewCategory.get('imagen2')?.invalid && formNewCategory.get('imagen2')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                </div>
+                <div>
+                    <label for="image3">Imagen categoria vista 3</label>
+                    <input id="image3" type="file" (change)="onFileChange($event, 'imagen3')">
+                    @if(formNewCategory.get('imagen3')?.invalid && formNewCategory.get('imagen3')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary" [disabled]="formNewCategory.invalid">Crear Categoria</button>
+        </div>
+      </form>
+    </div>
+  } @else if(this.typeView == 'FormsUpdate'){
+
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+      <button class="btn btn-primary d-flex" (click)="changeView()">
+        regresar
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" />
+          <path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" />
+        </svg>
+      </button>
+    </div>
+    <div style="width: 50rem; height: 30rem; overflow: auto;">
+      <form action="" [formGroup]="formUpdateCategory" (ngSubmit)="validationUpdate()">
+        <fieldset>
+          <legend>Editar producto</legend>
+          <div class="d-flex" style="gap: 1rem;">
+            <div class="d-flex flex-column" style="gap: 1rem; width: 90%;">
+              <div>
+                <label for="categoriaDescripcion">Categoria</label>
+                <input id="categoriaDescripcion" type="text" formControlName="categoriaDescripcion">
+                @if(formUpdateCategory.get('categoriaDescripcion')?.invalid && formUpdateCategory.get('categoriaDescripcion')?.touched){
+                <span>El titulo de la categoria es obligatoria.</span>
+                }
+              </div>
+              <div class="d-flex flex-column" style="gap: 2rem;">
+                <div class="d-flex" style="gap: 1rem;">
+                  <div>
+                    <img [src]="'data:image/png;base64,' + categoryUpdate.imagen1" alt="" style="width: 5rem;">
+                  </div>
+                  <div>
+                    <label for="imagen1">Imagen producto vista 1</label>
+                    <input id="imagen1" type="file" (change)="onFileChangeUpdate($event, 'imagen1')">
+                    @if(formUpdateCategory.get('imagen1')?.invalid && formUpdateCategory.get('imagen1')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                  </div>
+                </div>
+                <div class="d-flex" style="gap: 1rem;">
+                  <div>
+                    <img [src]="'data:image/png;base64,' + categoryUpdate.imagen2" alt="" style="width: 5rem;">
+                  </div>
+                  <div>
+                    <label for="imagen2">Imagen producto vista 2</label>
+                    <input id="image2" type="file" (change)="onFileChangeUpdate($event, 'imagen2')">
+                    @if(formUpdateCategory.get('imagen2')?.invalid && formUpdateCategory.get('imagen2')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                  </div>
+                </div>
+                <div class="d-flex" style="gap: 1rem;">
+                  <div>
+                    <img [src]="'data:image/png;base64,' + categoryUpdate.imagen3" alt="" style="width: 5rem;">
+                  </div>
+                  <div>
+                    <label for="imagen3">Imagen producto vista 3</label>
+                    <input id="imagen3" type="file" (change)="onFileChangeUpdate($event, 'imagen3')">
+                    @if(formUpdateCategory.get('imagen3')?.invalid && formUpdateCategory.get('imagen3')?.touched){
+                    <span>La imagen es obligatoria.</span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary" [disabled]="formUpdateCategory.invalid">Editar Producto</button>
+        </div>
+      </form>
+    </div>
+  }

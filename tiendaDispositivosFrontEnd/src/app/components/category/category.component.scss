@@ -20,7 +20,7 @@ span {
     height: fit-content;
 }
 
-.containerCellphone{
+.containerProduct{
     gap: 1rem;
     height: fit-content; 
     width: 11rem; 
@@ -34,7 +34,7 @@ span {
     border-radius: 1rem;
 }
 
-.containerCellphone:hover{
+.containerProduct:hover{
     transform: scale(1.1);
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);

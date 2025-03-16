@@ -1,0 +1,187 @@
+
+@if(this.typeView == 'Admins'){
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+        <button class="btn btn-primary d-flex" (click)="changeView()">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+            Agregar administrador
+        </button>
+    </div>
+    <div style="width: 85%; height: 30rem; overflow: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                  @for(key of keys; track $index){
+                    <th scope="col">{{key}}</th>
+                  }
+                  <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(admin of usersAdmin; track admin.id){
+                    <tr scope="row" style="text-align: center;">
+                        @for(key of keys; track $index){
+                            <td>{{admin[key]}}</td>
+                        }
+                        <td class="d-flex" style="gap: 0.1rem;">
+                          <button type="button" class="btn btn-primary" (click)="updateAdminForm(admin)">Editar</button>
+                          <button type="button" class="btn btn-danger" (click)="deteleteAdmin(admin)">Eliminar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+} @else if(this.typeView == 'FormAdmins') {
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+        <button class="btn btn-primary d-flex" (click)="changeView()">
+            regresar
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" /><path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" /></svg>
+        </button>
+    </div>
+    <div style="width: 100%; height: 30rem; overflow: auto;">
+        <form action="" [formGroup]="formNewUser" (ngSubmit)="validationUserAdmin()">
+            <fieldset>
+                <legend>Administrar usuarios administradores</legend>
+                <div class="d-flex" style="gap: 1rem;">
+                    <div class="d-flex flex-column" style="gap: 1rem; width: 25rem;">
+                        <div>
+                            <label for="Correo">Correo</label>
+                            <input id="Correo" type="email" formControlName="correo">
+                            @if(formNewUser.get('correo')?.invalid && formNewUser.get('correo')?.touched){
+                                <span>El correo es obligatorio y debe ser válido</span>
+                              }
+                        </div>
+                        <div>
+                            <label for="usuario">Usuario</label>
+                            <input id="usuario" type="text" formControlName="usuario">
+                            @if(formNewUser.get('usuario')?.invalid && formNewUser.get('usuario')?.touched){
+                                <span>Nombre de usuario obligatorio.</span>
+                            }
+                        </div>
+                            <div>
+                                <label for="middle">Contraseña</label>
+                                <input id="middle" type="password" formControlName="middle">
+                                @if(formNewUser.get('middle')?.invalid && formNewUser.get('middle')?.touched){
+                                  <span>La contraseña debe contener minimo 8 caracteres.</span>
+                                }
+                            </div>
+                            <div>
+                                <label for="confirmarMiddle">Confirmar contraseña</label>
+                                <input id="confirmarMiddle" type="password" formControlName="confirmarMiddle">
+                                @if(formNewUser.get('confirmarMiddle')?.touched || this.errorMiddle){
+                                    <span>{{this.errorMiddle}}</span>
+                                }
+                            </div>
+                    </div>
+                    <div class="d-flex flex-column" style="gap: 1rem; width: 25rem;">
+                        <div>
+                            <label for="estado">Estado del admin</label>
+                            <select name="" id="estado" formControlName="estado">
+                                <option value=""></option>
+                                <option value="ACT">Activo</option>
+                                <option value="INA">Inactivo</option>
+                            </select>
+                            @if(formNewUser.get('estado')?.invalid && formNewUser.get('estado')?.touched){
+                                <span>Debe elegir un estado</span>
+                              }
+                        </div>
+        
+                        <div>
+                            <label for="nivelAcceso">Nivel de Acceso</label>
+                            <select name="" id="nivelAcceso" formControlName="nivelAcceso">
+                                <option value=""></option>
+                                <option value="1">Super Admin</option>
+                                <option value="2">Product Admin</option>
+                                <option value="3">Query Admin</option>
+                            </select>
+                            @if(formNewUser.get('nivelAcceso')?.invalid && formNewUser.get('nivelAcceso')?.touched){
+                                <span>Debe elegir un nivel de acceso</span>
+                              }
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary" [disabled]="formNewUser.invalid">Crear Administrador</button>
+            </div>
+        </form>
+    </div>
+    
+} @else if(this.typeView == 'FormsUpdate'){
+    <div style="width: 100%; margin-bottom: 1rem;" class="d-flex">
+        <button class="btn btn-primary d-flex" (click)="changeView()">
+            regresar
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-corner-up-left-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 18v-6a3 3 0 0 0 -3 -3h-7" /><path d="M13 13l-4 -4l4 -4m-5 8l-4 -4l4 -4" /></svg>
+        </button>
+    </div>
+    <div style="width: 100%; height: 30rem; overflow: auto;">
+        <form action="" [formGroup]="formUpdateUser" (ngSubmit)="validationUpdate()">
+            <fieldset>
+                <legend>Editar usuarios administradores</legend>
+                <div class="d-flex" style="gap: 1rem;">
+                    <div class="d-flex flex-column" style="gap: 1rem; width: 25rem;">
+                        <div>
+                            <label for="Correo">Correo</label>
+                            <input id="Correo" type="email" formControlName="correo" [(ngModel)]="userAdminUpdate.email">
+                            @if(formUpdateUser.get('correo')?.invalid && formUpdateUser.get('correo')?.touched){
+                                <span>El correo es obligatorio y debe ser válido</span>
+                              }
+                        </div>
+                        <div>
+                            <label for="usuario">Usuario</label>
+                            <input id="usuario" type="text" formControlName="usuario" [(ngModel)]="userAdminUpdate.nombreUsu">
+                            @if(formUpdateUser.get('usuario')?.invalid && formUpdateUser.get('usuario')?.touched){
+                                <span>Nombre de usuario obligatorio.</span>
+                            }
+                        </div>
+                            <div>
+                                <label for="middle">Contraseña</label>
+                                <input id="middle" type="text" formControlName="middle" [(ngModel)]="userAdminUpdate.middle">
+                                @if(formUpdateUser.get('middle')?.invalid && formUpdateUser.get('middle')?.touched){
+                                  <span>La contraseña debe contener minimo 8 caracteres.</span>
+                                }
+                            </div>
+                            <div>
+                                <label for="confirmarMiddle">Confirmar contraseña</label>
+                                <input id="confirmarMiddle" type="text" formControlName="confirmarMiddle" [(ngModel)]="userAdminUpdate.middle">
+                                @if(formUpdateUser.get('confirmarMiddle')?.touched || this.errorMiddle){
+                                    <span>{{this.errorMiddle}}</span>
+                                }
+                            </div>
+                    </div>
+                    <div class="d-flex flex-column" style="gap: 1rem; width: 25rem;">
+                        <div>
+                            <label for="estado">Estado del admin</label>
+                            <select name="" id="estado" formControlName="estado" [(ngModel)]="userAdminUpdate.estado">
+                                <option value=""></option>
+                                <option value="ACT">Activo</option>
+                                <option value="INA">Inactivo</option>
+                            </select>
+                            @if(formUpdateUser.get('estado')?.invalid && formUpdateUser.get('estado')?.touched){
+                                <span>Debe elegir un estado</span>
+                              }
+                        </div>
+        
+                        <div>
+                            <label for="nivelAcceso">Nivel de Acceso</label>
+                            <select name="" id="nivelAcceso" formControlName="nivelAcceso" [(ngModel)]="userAdminUpdate.nivelAcceso">
+                                <option value=""></option>
+                                <option value="1">Super Admin</option>
+                                <option value="2">Product Admin</option>
+                                <option value="3">Query Admin</option>
+                            </select>
+                            @if(formUpdateUser.get('nivelAcceso')?.invalid && formUpdateUser.get('nivelAcceso')?.touched){
+                                <span>Debe elegir un nivel de acceso</span>
+                              }
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="d-flex" style="width: 100%; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary" [disabled]="formUpdateUser.invalid">Actualizar Datos</button>
+            </div>
+        </form>
+    </div>
+}
+
+
