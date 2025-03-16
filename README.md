@@ -90,4 +90,7 @@ SpringBoot
       - Luego darle click en Apply y luego run
       - El servidor correra en el puerto 8088 o en el puerto que se haya cambiado, pero es mejor no cambiarlo
 
-
+INICIO DE SESION
+   1. Puede iniciar sesion con las siguientes credenciales:
+      Usuario: ADMSUP
+      Contraseña: 12345678
