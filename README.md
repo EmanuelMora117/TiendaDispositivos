@@ -16,7 +16,7 @@ Instalacion
 
  1. clonar el repositorio con:
         
-        git clone
+        git clone https://github.com/EmanuelMora117/TiendaDispositivos.git
 
  2. Entrar al proyecto "tiendaDispositivosFrontEnd" con:
         
