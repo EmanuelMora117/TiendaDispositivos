@@ -31,7 +31,7 @@ Requisitos:
   
 - importar la base de datos Tienda TiendaProductosElectronicos
 
-#Proyecto Spring Boot
+# Proyecto Spring Boot
 
 Requisitos:
 
@@ -42,7 +42,7 @@ Requisitos:
 
 
 
-Ejecucion de proyectos
+# Ejecucion de proyectos
 
 Angular
 
