@@ -28,8 +28,6 @@ Requisitos:
 
 - Instalar PostgreSql version 17.4
   https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-  
-- importar la base de datos Tienda TiendaProductosElectronicos
 
 # Proyecto Spring Boot
 
@@ -42,7 +40,7 @@ Requisitos:
 
 
 
-# Ejecucion de proyectos
+# Configuración y ejecucion de proyectos
 
 Angular
 
