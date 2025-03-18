@@ -65,7 +65,8 @@ POSTGRESQL
  3. Luego de crear la base de datos, debe dar click derecho y dirigirse a la opcion "Restore..." ![image](https://github.com/user-attachments/assets/2e6051d5-2192-41c6-bd2b-df91cf1d7395)
  4. Se abrira una ventana donde tendra algunas opciones, se dirigira a la opcion que dice "FILENAME" y en la parte derecha en el icono de carpeta, dar click, luego se debe dirigir a la parte que indica el tipo de archivo a importar y debe asegurar de que esta seleccionado en tipo "SQL FILE" ![image](https://github.com/user-attachments/assets/28a7c459-0d5d-4b1a-b71e-e0a4f99cf0ea) ![image](https://github.com/user-attachments/assets/641955c1-8536-44f3-a78a-87548a057d87)
  5. Dar click en abrir y luego "Restore"
- 6. por ultimo vera en la siguiente ruta las tablas cargadas correctamente ![image](https://github.com/user-attachments/assets/646e85a6-d39d-4328-8d1b-551b21d1181e)
+ 6. por ultimo vera en la siguiente ruta las tablas cargadas correctamente 
+![image](https://github.com/user-attachments/assets/646e85a6-d39d-4328-8d1b-551b21d1181e)
    
 SpringBoot
 
