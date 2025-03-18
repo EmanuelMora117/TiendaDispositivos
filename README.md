@@ -85,9 +85,9 @@ SpringBoot
 3. Dirigirse al archivo "application.properties" realizar lo siguiente:
     - configurar el puerto el cual dice server.port el cual ya trae el 8088, lo puede cambiar pero se recomienda mantenerlo con ese puerto
     - configurar la conexion a la base de datos POSTGRESQL
-       spring.datasource.url=jdbc:postgresql://localhost:5432/TiendaProductosElectronicos -> donde dice "TiendaProductosElectronicos" tiene que ir el nombre de la base de datos que anterior mente creo, si agrego el mismo que esta en esta configuracion puede continuar, sino entonces cambielo por el que definio
-       spring.datasource.username=postgres -> usario por defecto cuando se descarga postgresql a menos de que se haya cambiado
-       spring.datasource.password= ingresar aqui la contraseña del super usuario que configuro en la instalacion del POSTGRESQL
+       - spring.datasource.url=jdbc:postgresql://localhost:5432/TiendaProductosElectronicos -> donde dice "TiendaProductosElectronicos" tiene que ir el nombre de la base de datos que anterior mente creo, si agrego el mismo que esta en esta configuracion puede continuar, sino entonces cambielo por el que definio
+       - spring.datasource.username=postgres -> usario por defecto cuando se descarga postgresql a menos de que se haya cambiado
+       - spring.datasource.password= ingresar aqui la contraseña del super usuario que configuro en la instalacion del POSTGRESQL
       
  4. Para correr el proyecto se debe lo siguiente
       - dirigir a la opcion ![image](https://github.com/user-attachments/assets/c8f0f7ce-8134-4612-a919-121810901d37), darle clic a la flecha que esta en la parte derecha que indica que se despliega 
